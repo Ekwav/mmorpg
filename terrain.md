@@ -1,19 +1,19 @@
-The terain is devided up into cubes of length `0.25` that can be modified in any way but have to connect to the rest of the world.
+The terrain is devided up into cubes of length `0.25` that can be modified in any way but have to connect to the rest of the world.
 They have to be connected in order for the collision system to work more effectively as it only tests in a Ring.
 
 
 ## Chunks
-To handle the terain effectively it is deviced into chungs of length 64x64. 
+To handle the terrain effectively it is deviced into chungs of length 64x64. 
 A chunk has the following attributes:
 ```
 {
-  "terain":[[5,4,3,3,..]..],
+  "terrain":[[5,4,3,3,..]..],
   "objects":[{"position":[x,y,z],"typeId":[1,39729387],"orientation":1}],
   "Entities":[{"position":[x,y,z],"typeId":[1,39729387],"orientation":{"body":345.323,"head":[36.478,4.4512,0]}]
 }
 ```
-* `terain` A two dimentional array of the teran where each position tells you the height-difference to the point, relative to itself that is closer to (0,0) on the map.
-* `objects` Additional objects placed in the terain.
+* `terrain` A two dimentional array of the terrain where each position tells you the height-difference to the point, relative to itself that is closer to (0,0) on the map.
+* `objects` Additional objects placed in the terrain.
 * `Entities` Entities in this chung, with their head and body orientation
 
 Objects have the following:
