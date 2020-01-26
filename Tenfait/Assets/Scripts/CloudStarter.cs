@@ -14,11 +14,17 @@ public class CloudStarter : MonoBehaviour
         // "boot it up"
         ClientCore.Init();
 
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void MovePlayer(Direction3 dir)
+    {
+        ClientCore.Instance.SendCommand<MoveCommand, Direction3>(new Coflnet.SourceReference(), dir);
     }
 }
