@@ -1,10 +1,11 @@
+## Attributes of a Building:
+
+* A building has stages. 
+* Every stage needs resources.
+
 ## These buildings should be in the game:
 
 * smithy 
-    * gold smith
-    * weapons smith
-    * armor smith
-    * black smith
 * auctionhouse
 * adventure taverne
 * carpentry
