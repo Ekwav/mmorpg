@@ -35,3 +35,10 @@ Objects have the following:
 * `modifiers` enum additional modifers 
     * `1` solid or not solid, 0 is passable
 
+## Processing of the terrain:
+
+* The terrain can be flattet by using a shovel. 
+* With the shovel you activate a possibility to see the vertexpoints in a close range.
+* Changing the terrain by grabbing one vertexpoint and move it up or down.
+* The vertexpoint is moved in block steps.
+* Vertexpoints around the selectet one move with every 2 block difference.
