@@ -34,3 +34,13 @@
 * Changing the terrain by grabbing one vertexpoint and move it up or down.
 * The vertexpoint is moved in block steps.
 * Vertexpoints around the selectet one move with every 2 block difference.
+
+## Placing of building sites:
+
+
+
+   
+## Placing of buildings:
+
+* A building can only be placed inside a building site
+   * It has to be complete 
