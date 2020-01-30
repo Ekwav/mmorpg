@@ -6,9 +6,20 @@ public class PlayerControllerScript : MonoBehaviour
 {
 
     public Camera camera;
+    public Canvas headUpDisplay;
+
+    public GameObject playerStatsMenuPrefab;
+    public PlayerStatsMenuScript playerStatsMenu;
+
+    public string description;
+
+    public int playerHP;
+    public int playerMaxHP;
+    public int playerMana;
+    public int playerMaxMana;
 
     private float movementSpeed = 5.0f;
-    private float rotationSpeed = 5.0f;
+    private float rotationSpeed = 1.0f;
     private float jumpCooldown = 0.5f;
     public float jumpCooldownTimer = 0f;
     public bool onGround;
@@ -18,7 +29,11 @@ public class PlayerControllerScript : MonoBehaviour
     {
         camera = GetComponentInChildren<Camera>();
         onGround = true;
-
+        headUpDisplay = GameObject.FindGameObjectWithTag("HeadUpDisplay").GetComponent<Canvas>();
+        playerHP = 100;
+        playerMaxHP = 200;
+        playerMana = 50;
+        playerMaxMana = 100;
     }
 
     private void FixedUpdate()
@@ -40,7 +55,20 @@ public class PlayerControllerScript : MonoBehaviour
     {
         float inputX = Input.GetAxis("Horizontal");
         float inputY = Input.GetAxis("Vertical");
-        float inputR = Mathf.Clamp(Input.GetAxis("Mouse X"), -1.0f, 1.0f);
+
+        if (inputY != 0)
+        {
+            transform.position = transform.position + (transform.forward * inputY) * movementSpeed * Time.deltaTime;
+        }
+
+        if (inputX != 0)
+        {
+            transform.Rotate(new Vector3(0, inputX, 0) * rotationSpeed);
+        }
+        else
+        {
+            transform.Rotate(new Vector3(0, 0, 0));
+        }
 
         if (Input.GetAxis("Jump") > 0 && jumpCooldownTimer == 0 && onGround)
         {
@@ -49,24 +77,24 @@ public class PlayerControllerScript : MonoBehaviour
             onGround = false;
         }
 
-        // get current position, then do calculations
-        Vector3 moveVectorX = transform.forward * inputY;
-        Vector3 moveVectorY = transform.right * inputX;
-        Vector3 moveVector = (moveVectorX + moveVectorY) * movementSpeed * Time.deltaTime;
-
-        // update Character position and rotation
-        transform.position = transform.position + moveVector;
-        transform.Rotate(new Vector3(0, inputX, 0) * rotationSpeed);
-
         if (Input.GetMouseButtonDown(0))
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit, 10.0f))
+            if (Physics.Raycast(ray, out hit, 7.0f))
             {
-                hit.transform.gameObject.SendMessage("OpenTalkMenu");
-                Debug.Log("You selected the " + hit.transform.name); // ensure you picked right object
+                if (hit.transform.gameObject.GetComponent<NPCControllerScript>().popUp == null)
+                {
+                    hit.transform.gameObject.SendMessage("OpenTalkMenu");
+                }
+                //Debug.Log("You selected the " + hit.transform.name); // ensure you picked right object
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.P) && playerStatsMenu == null)
+        {
+            playerStatsMenu = Instantiate(playerStatsMenuPrefab, FindObjectOfType<Canvas>().transform).AddComponent<PlayerStatsMenuScript>();
+            playerStatsMenu.player = this;
         }
 
     }
