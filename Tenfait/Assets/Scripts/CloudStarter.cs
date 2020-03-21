@@ -14,6 +14,7 @@ public class CloudStarter : MonoBehaviour
         // "boot it up"
         ClientCore.Init();
 
+        var bytes = MessagePack.MessagePackSerializer.Serialize(new Chunk(){});
     }
 
     // Update is called once per frame
